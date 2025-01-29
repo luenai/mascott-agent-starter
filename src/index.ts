@@ -7,7 +7,7 @@ import {
   type Character,
 } from "@elizaos/core";
 import { bootstrapPlugin } from "@elizaos/plugin-bootstrap";
-import { createNodePlugin } from "@elizaos/plugin-node";
+// import { createNodePlugin } from "@elizaos/plugin-node";
 import fs from "fs";
 import net from "net";
 import path from "path";
