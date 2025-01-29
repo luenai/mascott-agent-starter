@@ -1,5 +1,5 @@
 # Use a specific Node.js version for better reproducibility
-FROM node:22.13.0-slim AS builder
+FROM node:23.3.0-slim AS builder
 
 # Install pnpm globally and install necessary build tools
 RUN npm install -g pnpm@9.15.1 && \
@@ -56,6 +56,6 @@ COPY --from=builder /app/dist /app/dist
 COPY --from=builder /app/tsconfig.json /app/
 COPY --from=builder /app/pnpm-lock.yaml /app/
 
-EXPOSE 80
+EXPOSE 3000
 # Set the command to run the application
 CMD ["pnpm", "start", "--characters=./characters/eliza.character.json"]
