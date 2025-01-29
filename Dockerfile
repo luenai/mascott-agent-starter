@@ -1,5 +1,5 @@
 # Use a specific Node.js version for better reproducibility
-FROM node:23.3.0-slim AS builder
+FROM node:22.13.1-bullseye AS builder
 
 # Install pnpm globally and install necessary build tools
 RUN npm install -g pnpm@9.15.1 && \
