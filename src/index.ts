@@ -46,7 +46,7 @@ export function createAgent(
     character.name,
   );
 
-  nodePlugin ??= createNodePlugin();
+  // nodePlugin ??= createNodePlugin();
 
   return new AgentRuntime({
     databaseAdapter: db,
@@ -56,7 +56,7 @@ export function createAgent(
     character,
     plugins: [
       bootstrapPlugin,
-      nodePlugin,
+      // nodePlugin,
       // character.settings?.secrets?.WALLET_PUBLIC_KEY ? solanaPlugin : null,
     ].filter(Boolean),
     providers: [],
