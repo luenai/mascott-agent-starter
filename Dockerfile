@@ -4,7 +4,7 @@ FROM node:20.10.0-bullseye AS builder
 # Install pnpm globally and install necessary build tools
 RUN npm install -g pnpm@9.15.1 && \
     apt-get update && \
-    apt-get install -y git python3 make g++ && \
+    apt-get install -y git python3 make g++ wget unzip && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
@@ -14,8 +14,9 @@ RUN ln -s /usr/bin/python3 /usr/bin/python
 # Set the working directory
 WORKDIR /app
 
-# Set environment variable to force using prebuilt binary
+# Set environment variables to force using prebuilt binaries
 ENV NODE_LLAMA_CPP_SKIP_DOWNLOAD=false
+ENV NODE_LLAMA_CPP_PREBUILT_ONLY=1
 
 # Copy package.json and other configuration files
 COPY package.json ./
@@ -44,14 +45,15 @@ FROM node:20.10.0-slim
 # Install runtime dependencies if needed
 RUN npm install -g pnpm@9.15.1
 RUN apt-get update && \
-    apt-get install -y git python3 && \
+    apt-get install -y git python3 wget unzip && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
 
-# Set environment variable again to make sure it uses prebuilt binaries
+# Set environment variables again to ensure prebuilt binaries are used
 ENV NODE_LLAMA_CPP_SKIP_DOWNLOAD=false
+ENV NODE_LLAMA_CPP_PREBUILT_ONLY=1
 
 # Copy built artifacts and production dependencies from the builder stage
 COPY --from=builder /app/package.json /app/
