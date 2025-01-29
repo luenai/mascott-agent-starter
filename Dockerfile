@@ -14,6 +14,9 @@ RUN ln -s /usr/bin/python3 /usr/bin/python
 # Set the working directory
 WORKDIR /app
 
+# Set environment variable to force using prebuilt binary
+ENV NODE_LLAMA_CPP_SKIP_DOWNLOAD=false
+
 # Copy package.json and other configuration files
 COPY package.json ./
 COPY pnpm-lock.yaml ./
@@ -46,6 +49,9 @@ RUN apt-get update && \
     rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
+
+# Set environment variable again to make sure it uses prebuilt binaries
+ENV NODE_LLAMA_CPP_SKIP_DOWNLOAD=false
 
 # Copy built artifacts and production dependencies from the builder stage
 COPY --from=builder /app/package.json /app/
